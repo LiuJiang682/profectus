@@ -19,14 +19,6 @@ public class InvoicesController {
 
 	private static final Logger LOGGER = Logger.getLogger(InvoicesController.class);
 	
-	@RequestMapping("/welcome")
-	public ModelAndView helloWorld() {
- 
-		String message = "<br><div style='text-align:center;'>"
-				+ "<h3>********** Hello World, Spring MVC Tutorial</h3>This message is coming from CrunchifyHelloWorld.java **********</div><br><br>";
-		return new ModelAndView("welcome", "message", message);
-	}
-	
 	@RequestMapping("/searchInvoiceNumber")
 	public ModelAndView searchByInvoiceNumber(HttpServletRequest request, HttpServletResponse response) {
 		String invoiceNumber = request.getParameter("invoiceNumber");
@@ -49,8 +41,11 @@ public class InvoicesController {
 	}
 
 	@RequestMapping("/searchInvoiceType")
-	public ModelAndView searchByInvoiceType() {
-		String message = "SearchByInvoiceType";
-		return new ModelAndView("welcome", "message", message);
+	public ModelAndView searchByInvoiceType(HttpServletRequest request, HttpServletResponse response) {
+		String invoiceType = request.getParameter("invoiceType");
+		String pageSize = request.getParameter("pageSize");
+		LOGGER.debug("invoiceType : " + invoiceType + ", pageSize: " + pageSize);
+		List<InvoiceModel> invoices = getDummies();
+		return new ModelAndView("result", "invoices", invoices);
 	}
 }
