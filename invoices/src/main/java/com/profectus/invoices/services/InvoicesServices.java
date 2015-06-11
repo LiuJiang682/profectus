@@ -20,6 +20,7 @@ public class InvoicesServices {
 	@Transactional
 	public Invoice find(long invoiceNumber) {
 		Query query = em.createNamedQuery("Invoice.findByInvoiceNumber");
+//		Query query = em.createQuery("SELECT I FROM com.profectus.invoices.entity.Invoice I where I.invoiceNumber = :invoiceNumber");
 		query.setParameter("invoiceNumber", invoiceNumber);
 		return (Invoice) query.getSingleResult();
 	}

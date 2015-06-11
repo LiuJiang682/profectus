@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    version="1.0">
+
+    <persistence-unit name="persistenceUnit"
+        transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <properties>
+           <property name="hibernate.connection.url" value="jdbc:h2:/tmp/db/testdb" /> -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"></property>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.connection.username" value="sa" />
+        </properties>
+        <class>com.profectus.invoices.entity.Invoice</class>
+    </persistence-unit>
+</persistence>
