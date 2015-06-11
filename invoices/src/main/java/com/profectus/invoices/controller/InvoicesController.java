@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.profectus.common.constants.Constants.Strings;
 import com.profectus.common.utils.StringUtils;
+import com.profectus.invoices.controller.helper.InvoicesControllerHelper;
 import com.profectus.invoices.entity.Invoice;
 import com.profectus.invoices.model.InvoiceModel;
 import com.profectus.invoices.services.InvoicesServices;
@@ -39,49 +40,13 @@ public class InvoicesController {
 			Long invoiceNo = Long.parseLong(invoiceNumber);
 			try {
 				Invoice invoiceEntity = invoicesServices.find(invoiceNo);
-				InvoiceModel invoice = doEntityToModelConvertion(invoiceEntity);
+				InvoiceModel invoice = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
 				invoices.add(invoice);
 			} catch (Exception e) {
 				LOGGER.error("Query failed.", e);
 			}
 		}
 		return new ModelAndView("result", "invoices", invoices);
-	}
-
-	private InvoiceModel doEntityToModelConvertion(Invoice invoiceEntity) {
-		InvoiceModel invoice = new InvoiceModel();
-		invoice.setInvoiceNumber(invoiceEntity.getInvoiceNumber());
-		invoice.setInvoiceType("c".equals(invoiceEntity.getInvoiceType()) ? "Cash"
-				: "Security");
-		// invoice.setInvoiceDate(doDateToStringConvertion(invoiceEntity.getInvoiceDate()));
-		invoice.setInvoiceDate(invoiceEntity.getInvoiceDate());
-		invoice.setTotalAmount(invoiceEntity.getTotalAmount());
-		invoice.setNetAmount(invoiceEntity.getNetAmount());
-		String cashMethod = invoiceEntity.getCashMethod();
-		if (!StringUtils.isEmpty(cashMethod)) {
-			invoice.setCashMethod("c".equals(cashMethod) ? "Collected"
-					: "Supplied");
-		}
-		invoice.setSecurityFee(invoiceEntity.getSecurityFee());
-		return invoice;
-	}
-
-	// private String doDateToStringConvertion(String invoiceDate) {
-	// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	// return sdf.format(invoiceDate);
-	// }
-
-	private List<InvoiceModel> getDummies() {
-		List<InvoiceModel> invoices = new ArrayList<>();
-		InvoiceModel invoice = new InvoiceModel();
-		invoice.setInvoiceNumber(1);
-		invoice.setInvoiceType("Cash");
-		invoice.setInvoiceDate("27/05/2015");
-		invoice.setTotalAmount(new BigDecimal(330));
-		invoice.setNetAmount(new BigDecimal(300));
-		invoice.setCashMethod("Supplied");
-		invoices.add(invoice);
-		return invoices;
 	}
 
 	@RequestMapping("/searchInvoiceType")
@@ -95,7 +60,7 @@ public class InvoicesController {
 		List<Invoice> entities = invoicesServices.findByInvoiceType(
 				invoiceType, Integer.parseInt(pageSize));
 		for (Invoice entity : entities) {
-			InvoiceModel invoice = doEntityToModelConvertion(entity);
+			InvoiceModel invoice = InvoicesControllerHelper.doEntityToModelConvertion(entity);
 			invoices.add(invoice);
 		}
 

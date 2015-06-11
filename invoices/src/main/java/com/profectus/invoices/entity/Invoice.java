@@ -79,5 +79,8 @@ public class Invoice implements Serializable {
 	public String getCashMethod() {
 		return cashMethod;
 	}
+	public void setCashMethod(String cashMethod) {
+		this.cashMethod = cashMethod;
+	}
 
 }
