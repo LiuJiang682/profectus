@@ -15,5 +15,6 @@
             <property name="hibernate.connection.password" value="" />
             <property name="hibernate.connection.username" value="sa" />
         </properties>
+        <class>com.profectus.invoices.entity.Invoice</class>
     </persistence-unit>
 </persistence>
