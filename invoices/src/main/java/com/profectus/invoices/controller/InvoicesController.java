@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.profectus.common.constants.Constants.Strings;
@@ -56,6 +57,20 @@ public class InvoicesController {
 		}
 		return new ModelAndView(VIEW_RESULT, OBJECT_INVOICES, invoices);
 	}
+	
+//	@RequestMapping("/searchInvoiceNumber")
+//	public ModelAndView searchByInvoiceNumber(@RequestParam(value = Strings.PARAM_INVOICE_NUMBER) long invoiceNumber) {
+//		List<InvoiceModel> invoices = new ArrayList<>();
+//		try {
+//			InvoiceModel invoiceEntity = invoicesServices.find(invoiceNumber);
+//			InvoiceModel invoice = this.invoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+//			invoices.add(invoice);
+//		}
+//		catch (Exception e) {
+//			LOGGER.error(e.getMessage(), e);
+//		}
+//		return new ModelAndView(VIEW_RESULT, OBJECT_INVOICES, invoices);
+//	}
 
 	@RequestMapping("/searchInvoiceType")
 	public ModelAndView searchByInvoiceType(HttpServletRequest request,
