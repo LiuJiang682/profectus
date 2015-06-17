@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.profectus.common.constants.Constants.Strings;
@@ -15,20 +17,31 @@ import com.profectus.invoices.model.InvoiceModel;
 
 public class InvoiceControllerHelperTest {
 
+	private InvoicesControllerHelperImpl testInstance;
+	
+	@Before
+	public void setUp() {
+		this.testInstance = new InvoicesControllerHelperImpl();
+	}
+	
+	@After
+	public void tearDown() {
+		this.testInstance = null;
+	}
 	@Test
 	public void testGetInvoiceTypeLabel() {
-		assertEquals(Strings.EMPTY, InvoicesControllerHelper.getInvoiceTypeLabel(Strings.EMPTY));
-		assertEquals(Strings.EMPTY, InvoicesControllerHelper.getInvoiceTypeLabel("g"));
-		assertEquals("Cash", InvoicesControllerHelper.getInvoiceTypeLabel("C"));
-		assertEquals("Security", InvoicesControllerHelper.getInvoiceTypeLabel("s"));
+		assertEquals(Strings.EMPTY, testInstance.getInvoiceTypeLabel(Strings.EMPTY));
+		assertEquals(Strings.EMPTY, testInstance.getInvoiceTypeLabel("g"));
+		assertEquals("Cash", testInstance.getInvoiceTypeLabel("C"));
+		assertEquals("Security", testInstance.getInvoiceTypeLabel("s"));
 	}
 	
 	@Test
 	public void testGetCashMethodLabel() {
-		assertEquals(Strings.EMPTY, InvoicesControllerHelper.getCashMethodLabel(Strings.EMPTY));
-		assertEquals(Strings.EMPTY, InvoicesControllerHelper.getCashMethodLabel("g"));
-		assertEquals("Collected", InvoicesControllerHelper.getCashMethodLabel("C"));
-		assertEquals("Supplied", InvoicesControllerHelper.getCashMethodLabel("s"));
+		assertEquals(Strings.EMPTY, testInstance.getCashMethodLabel(Strings.EMPTY));
+		assertEquals(Strings.EMPTY, testInstance.getCashMethodLabel("g"));
+		assertEquals("Collected", testInstance.getCashMethodLabel("C"));
+		assertEquals("Supplied", testInstance.getCashMethodLabel("s"));
 	}
 	
 	@Test
@@ -40,7 +53,7 @@ public class InvoiceControllerHelperTest {
 		invoiceEntity.setTotalAmount(new BigDecimal(330));
 		invoiceEntity.setNetAmount(new BigDecimal(300));
 		invoiceEntity.setCashMethod("c");
-		InvoiceModel model = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+		InvoiceModel model = testInstance.doEntityToModelConvertion(new InvoiceModel(invoiceEntity));
 		assertNotNull(model);
 		assertTrue(model.getInvoiceNumber() == 1l);
 		assertEquals("Cash", model.getInvoiceType());
@@ -60,7 +73,7 @@ public class InvoiceControllerHelperTest {
 		invoiceEntity.setTotalAmount(new BigDecimal(330));
 		invoiceEntity.setNetAmount(new BigDecimal(300));
 		
-		InvoiceModel model = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+		InvoiceModel model = testInstance.doEntityToModelConvertion(new InvoiceModel(invoiceEntity));
 		assertNotNull(model);
 		assertTrue(model.getInvoiceNumber() == 1l);
 		assertEquals("Cash", model.getInvoiceType());
@@ -80,7 +93,7 @@ public class InvoiceControllerHelperTest {
 		invoiceEntity.setTotalAmount(new BigDecimal(330));
 		invoiceEntity.setNetAmount(new BigDecimal(300));
 		
-		InvoiceModel model = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+		InvoiceModel model = testInstance.doEntityToModelConvertion(new InvoiceModel(invoiceEntity));
 		assertNotNull(model);
 		assertTrue(model.getInvoiceNumber() == 1l);
 		assertEquals(Strings.EMPTY, model.getInvoiceType());
@@ -100,7 +113,7 @@ public class InvoiceControllerHelperTest {
 		invoiceEntity.setTotalAmount(new BigDecimal(330));
 		invoiceEntity.setNetAmount(new BigDecimal(300));
 		invoiceEntity.setCashMethod("a");
-		InvoiceModel model = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+		InvoiceModel model = testInstance.doEntityToModelConvertion(new InvoiceModel(invoiceEntity));
 		assertNotNull(model);
 		assertTrue(model.getInvoiceNumber() == 1l);
 		assertEquals("Cash", model.getInvoiceType());
@@ -121,7 +134,7 @@ public class InvoiceControllerHelperTest {
 		invoiceEntity.setNetAmount(new BigDecimal(300));
 		invoiceEntity.setCashMethod(null);
 		invoiceEntity.setSecurityFee(new BigDecimal(2));
-		InvoiceModel model = InvoicesControllerHelper.doEntityToModelConvertion(invoiceEntity);
+		InvoiceModel model = testInstance.doEntityToModelConvertion(new InvoiceModel(invoiceEntity));
 		assertNotNull(model);
 		assertTrue(model.getInvoiceNumber() == 1l);
 		assertEquals("Security", model.getInvoiceType());

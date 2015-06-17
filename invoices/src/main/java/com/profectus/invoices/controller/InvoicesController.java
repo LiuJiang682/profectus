@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.profectus.common.constants.Constants.Strings;
 import com.profectus.common.utils.StringUtils;
 import com.profectus.invoices.controller.helper.InvoicesControllerHelper;
-import com.profectus.invoices.entity.Invoice;
 import com.profectus.invoices.enums.InvoiceType;
 import com.profectus.invoices.model.InvoiceModel;
 import com.profectus.invoices.services.InvoicesServices;
@@ -33,6 +32,9 @@ public class InvoicesController {
 	
 	@Autowired
 	private InvoicesServices invoicesServices;
+	
+	@Autowired
+	private InvoicesControllerHelper invoicesControllerHelper;
 
 	@RequestMapping("/searchInvoiceNumber")
 	public ModelAndView searchByInvoiceNumber(HttpServletRequest request,
@@ -44,8 +46,8 @@ public class InvoicesController {
 		if (StringUtils.isValidInteger(invoiceNumber)) {
 			Long invoiceNo = Long.parseLong(invoiceNumber);
 			try {
-				Invoice invoiceEntity = invoicesServices.find(invoiceNo);
-				InvoiceModel invoice = InvoicesControllerHelper
+				InvoiceModel invoiceEntity = invoicesServices.find(invoiceNo);
+				InvoiceModel invoice = invoicesControllerHelper
 						.doEntityToModelConvertion(invoiceEntity);
 				invoices.add(invoice);
 			} catch (Exception e) {
@@ -72,10 +74,10 @@ public class InvoicesController {
 			invoiceType = InvoiceType.fromCode(invoiceTypeStr);
 			String invoiceTypeCode = invoiceType.getCode();
 			int requestedPageSize = Integer.parseInt(pageSize);
-			List<Invoice> entities = invoicesServices.findByInvoiceType(
+			List<InvoiceModel> entities = invoicesServices.findByInvoiceType(
 					invoiceTypeCode, requestedPageSize );
-			for (Invoice entity : entities) {
-				InvoiceModel invoice = InvoicesControllerHelper
+			for (InvoiceModel entity : entities) {
+				InvoiceModel invoice = invoicesControllerHelper
 						.doEntityToModelConvertion(entity);
 				invoices.add(invoice);
 			}

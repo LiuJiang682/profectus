@@ -3,6 +3,8 @@ package com.profectus.invoices.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.profectus.invoices.entity.Invoice;
+
 public class InvoiceModel implements Serializable {
 
 	/**
@@ -17,6 +19,16 @@ public class InvoiceModel implements Serializable {
 	private BigDecimal netAmount;
 	private String cashMethod;
 	private BigDecimal securityFee;
+	
+	public InvoiceModel(Invoice invoice) {
+		this.invoiceNumber = invoice.getInvoiceNumber();
+		this.invoiceType = invoice.getInvoiceType();
+		this.invoiceDate = invoice.getInvoiceDate();
+		this.totalAmount = invoice.getTotalAmount();
+		this.netAmount = invoice.getNetAmount();
+		this.cashMethod = invoice.getCashMethod();
+		this.securityFee = invoice.getSecurityFee();
+	}
 	
 	public long getInvoiceNumber() {
 		return invoiceNumber;
