@@ -68,49 +68,49 @@ public class InvoicesControllerTest {
 //		verify(this.mockServices).find(Matchers.anyLong());
 //	}
 	
-	@Test
-	public void testSearchByInvoiceNumberNull() {
-		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn(null);
-		
-		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
-		assertNotNull(mav);
-		Map<String, Object> models = mav.getModel();
-		verifyNumberOfInvoices(models, Numeral.ZERO);
-		verify(this.mockServices, never()).find(Matchers.anyLong());
-	}
-	
-	@Test
-	public void testSearchByInvoiceNumberEmptyString() {
-		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("");
-		
-		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
-		assertNotNull(mav);
-		Map<String, Object> models = mav.getModel();
-		verifyNumberOfInvoices(models, Numeral.ZERO);
-		verify(this.mockServices, never()).find(Matchers.anyLong());
-	}
-	
-	@Test
-	public void testSearchByInvoiceNumberInvalidString() {
-		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("abc");
-		
-		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
-		assertNotNull(mav);
-		Map<String, Object> models = mav.getModel();
-		verifyNumberOfInvoices(models, Numeral.ZERO);
-		verify(this.mockServices, never()).find(Matchers.anyLong());
-	}
-	
-	@Test
-	public void testSearchByInvoiceNumberServicesException() {
-		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("1");
-		when(this.mockServices.find(1l)).thenThrow(new RuntimeException("test"));
-		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
-		assertNotNull(mav);
-		Map<String, Object> models = mav.getModel();
-		verifyNumberOfInvoices(models, Numeral.ZERO);
-		verify(this.mockServices).find(1l);
-	}
+//	@Test
+//	public void testSearchByInvoiceNumberNull() {
+//		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn(null);
+//		
+//		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
+//		assertNotNull(mav);
+//		Map<String, Object> models = mav.getModel();
+//		verifyNumberOfInvoices(models, Numeral.ZERO);
+//		verify(this.mockServices, never()).find(Matchers.anyLong());
+//	}
+//	
+//	@Test
+//	public void testSearchByInvoiceNumberEmptyString() {
+//		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("");
+//		
+//		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
+//		assertNotNull(mav);
+//		Map<String, Object> models = mav.getModel();
+//		verifyNumberOfInvoices(models, Numeral.ZERO);
+//		verify(this.mockServices, never()).find(Matchers.anyLong());
+//	}
+//	
+//	@Test
+//	public void testSearchByInvoiceNumberInvalidString() {
+//		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("abc");
+//		
+//		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
+//		assertNotNull(mav);
+//		Map<String, Object> models = mav.getModel();
+//		verifyNumberOfInvoices(models, Numeral.ZERO);
+//		verify(this.mockServices, never()).find(Matchers.anyLong());
+//	}
+//	
+//	@Test
+//	public void testSearchByInvoiceNumberServicesException() {
+//		when(this.mockRequest.getParameter(Strings.PARAM_INVOICE_NUMBER)).thenReturn("1");
+//		when(this.mockServices.find(1l)).thenThrow(new RuntimeException("test"));
+//		ModelAndView mav = this.testInstance.searchByInvoiceNumber(mockRequest, mockResponse);
+//		assertNotNull(mav);
+//		Map<String, Object> models = mav.getModel();
+//		verifyNumberOfInvoices(models, Numeral.ZERO);
+//		verify(this.mockServices).find(1l);
+//	}
 	
 //	@Test
 //	public void testSearchByInvoiceType() {
